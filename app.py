@@ -10,7 +10,7 @@ input_queue_name = os.getenv('INPUT_QUEUE_NAME')
 
 
 @app.on_sqs_message(queue=input_queue_name, batch_size=BATCH_SIZE)
-def save_sqrt(event):
+def sqrt(event):
     for record in event:
         record_body = json.loads(record.body)
         number = record_body['number']
