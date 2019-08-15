@@ -1,0 +1,10 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - sudo pip install --upgrade pip
+      - pip install -r requirements/requirements.txt
+      - pip install -r requirements/requirements-test.txt
+      - echo 'Starting tests'
+      - chmod +x ./tests/run_tests.sh
+      - ./tests/run_tests.sh
