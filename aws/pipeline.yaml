@@ -153,11 +153,11 @@ Resources:
             Provider: GitHub
             Version: '1'
           Configuration:
-            Branch: master
-            OAuthToken: '{{resolve:ssm:nlp-github-token:1}}'
-            Owner: cgauge
-            PollForSourceChanges: true
-            Repo: customergauge-nlp-worker
+            Branch: 'master'
+              OAuthToken: !Ref GitHubToken
+              Owner: !Ref GitHubOwner
+              PollForSourceChanges: true
+              Repo: !Ref GitHubRepo
           Name: SourceCode
           OutputArtifacts:
           - Name: repository
