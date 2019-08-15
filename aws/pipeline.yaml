@@ -32,9 +32,9 @@ Resources:
     Properties:
       AttributeDefinitions:
         - AttributeName: "key"
-          AttributeType: "N"
+          AttributeType: "S"
         - AttributeName: "value"
-          AttributeType: "N"
+          AttributeType: "S"
       KeySchema:
         - AttributeName: "key"
           KeyType: "HASH"
@@ -154,10 +154,10 @@ Resources:
             Version: '1'
           Configuration:
             Branch: 'master'
-              OAuthToken: !Ref GitHubToken
-              Owner: !Ref GitHubOwner
-              PollForSourceChanges: true
-              Repo: !Ref GitHubRepo
+            OAuthToken: !Ref GitHubToken
+            Owner: !Ref GitHubOwner
+            PollForSourceChanges: true
+            Repo: !Ref GitHubRepo
           Name: SourceCode
           OutputArtifacts:
           - Name: repository
