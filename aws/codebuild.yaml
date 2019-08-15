@@ -15,6 +15,8 @@ phases:
       - cp -R v-env/lib64/python3.7/site-packages/. vendor
       - echo 'Size of build' $(du -sm --exclude=./v-env .) 'MB'
       - find . -name "*.pyc" -exec rm -f {} \;
+      - find ./vendor  -name 'boto3' -prune -type d -exec rm -rf {} \;
+      - find ./vendor  -name 'botocore' -prune -type d -exec rm -rf {} \;
       - echo 'Size of build after cleaning' $(du -sm --exclude=./v-env .) 'MB'
 
       - echo '`date` Packaging build'
