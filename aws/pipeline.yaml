@@ -38,6 +38,8 @@ Resources:
       KeySchema:
         - AttributeName: "key"
           KeyType: "HASH"
+        - AttributeName: "value"
+          KeyType: "RANGE"
       BillingMode: PAY_PER_REQUEST
   InputQueue:
     Type: AWS::SQS::Queue
@@ -135,6 +137,11 @@ Resources:
             Effect: Allow
             Resource:
             - "*"
+          - Action:
+            - logs:*
+            Effect: Allow
+            Resource:
+              - "*"
         PolicyName: CodeBuildServicePermissions
     Type: AWS::IAM::Role
   CodePipeline:
