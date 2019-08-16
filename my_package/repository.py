@@ -18,7 +18,7 @@ def save_result(number, result):
 def retrieve_result_for(number):
     table_name = os.environ.get('DYNAMO_TABLE_NAME')
     table = _get_dynamo_table(table_name)
-    response = table.get_item(Key=number)
+    response = table.get_item(Key={'key': str(number)})
     item = response.get('Item')
     if item:
         return item['value']
