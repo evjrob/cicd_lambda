@@ -4,7 +4,7 @@ import boto3
 
 def _get_dynamo_table(table_name):
     dynamo_resource = boto3.resource('dynamodb', region_name=os.environ.get('DEPLOY_REGION'))
-    table = dynamo_resource.dynamo_resource.Table(table_name)
+    table = dynamo_resource.Table(table_name)
     return table
 
 
