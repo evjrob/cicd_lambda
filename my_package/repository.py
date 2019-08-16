@@ -12,7 +12,7 @@ def _get_dynamo_table(table_name):
 def save_result(number, result):
     table_name = os.environ.get('DYNAMO_TABLE_NAME')
     table = _get_dynamo_table(table_name)
-    item = {'key': str(number), 'value': Decimal(result)}
+    item = {'key': str(number), 'value': Decimal(str(result))}
     table.put_item(Item=item)
 
 
