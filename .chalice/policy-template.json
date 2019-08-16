@@ -20,7 +20,7 @@
       {
         "Effect": "Allow",
         "Action": [
-          "dynamo:*"
+          "dynamodb:*"
         ],
         "Resource": "POLICY_ENV_DYNAMO_TABLE_ARN"
       }
