@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 import boto3
 
 
@@ -11,7 +12,7 @@ def _get_dynamo_table(table_name):
 def save_result(number, result):
     table_name = os.environ.get('DYNAMO_TABLE_NAME')
     table = _get_dynamo_table(table_name)
-    item = {'key': number, 'value': result}
+    item = {'key': str(number), 'value': Decimal(result)}
     table.put_item(Item=item)
 
 
