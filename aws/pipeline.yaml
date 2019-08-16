@@ -18,6 +18,9 @@ Resources:
         Rules:
         - ExpirationInDays: 7
           Status: Enabled
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
     Type: AWS::S3::Bucket
   ApplicationBucket:
     Properties:
@@ -26,6 +29,9 @@ Resources:
         Rules:
           - ExpirationInDays: 7
             Status: Enabled
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
     Type: AWS::S3::Bucket
   DynamoTable:
     Type: AWS::DynamoDB::Table
@@ -41,8 +47,43 @@ Resources:
         - AttributeName: "value"
           KeyType: "RANGE"
       BillingMode: PAY_PER_REQUEST
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
+  DynamoTableName:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: name of Dynamo DB Table
+      Name: !Join ['-' ,[!Ref Name, 'dynamodb-tablename']]
+      Type: String
+      Value: !Ref DynamoTable
+  DynamoTableArn:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: arn of Dynamo DB Table
+      Name: !Join ['-' ,[!Ref Name, 'dynamodb-arn']]
+      Type: String
+      Value: !GetAtt 'DynamoTable.Arn'
   InputQueue:
     Type: AWS::SQS::Queue
+    Properties:
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
+  InputQueueName:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: name of input queue
+      Name: !Join ['-' ,[!Ref Name, 'sqs-queuename']]
+      Type: String
+      Value: !GetAtt 'InputQueue.QueueName'
+  InputQueueArn:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: arn of input queue
+      Name: !Join ['-' ,[!Ref Name, 'sqs-arn']]
+      Type: String
+      Value: !GetAtt 'InputQueue.Arn'
   CloudFormationRole:
     Properties:
       AssumeRolePolicyDocument:
@@ -103,6 +144,9 @@ Resources:
         BuildSpec: aws/codebuild.yaml
         Type: CODEPIPELINE
       TimeoutInMinutes: 15
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
     Type: AWS::CodeBuild::Project
 
   CodeTest:
@@ -119,6 +163,9 @@ Resources:
         BuildSpec: aws/codetest.yaml
         Type: CODEPIPELINE
       TimeoutInMinutes: 15
+      Tags:
+        - Key: "owner"
+          Value: !Ref Name
     Type: AWS::CodeBuild::Project
   CodeBuildRole:
     Properties:
