@@ -9,7 +9,7 @@ Parameters:
     Type: String
   Name:
     Type: String
-
+    AllowedPattern: "[a-z-].+"
 Resources:
   ArtifactStore:
     Properties:
