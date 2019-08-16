@@ -20,4 +20,4 @@ def sqrt(event):
         else:
             result = newton_sqrt(number)
             save_result(number, result)
-            print(f'Result saved to DB: sqrt({number})={result_from_db}')
+            print(f'Result saved to DB: sqrt({number})={result}')
